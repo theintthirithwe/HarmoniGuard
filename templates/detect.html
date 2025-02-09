@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Hate Speech Detection</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='responsive.css') }}">
+
+    <style>
+        body {
+            background: #170c65;
+            color: white;
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin-top: 80px;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.2);
+        }
+
+        h2 {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        button {
+            background: #1e90ff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 18px;
+            border-radius: 8px;
+            transition: 0.3s ease-in-out;
+        }
+
+        button:hover {
+            background: #0073e6;
+            transform: scale(1.05);
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+
+        #loading {
+            display: none;
+            font-size: 18px;
+            font-weight: bold;
+            color: #1e90ff;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header class="header_section">
+        <div class="container-fluid">
+            <nav class="navbar navbar-expand-lg custom_nav-container">
+                <a class="navbar-brand" href="index.html">Data Prophets</a>
+                
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="/">Home</a>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                               data-bs-toggle="dropdown" aria-expanded="false">
+                                Detection
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="/text_detect">Text Detection</a></li>
+                                <li><a class="dropdown-item" href="/detect">Audio Detection</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/test">About Us</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/contact">Contact Us</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Bootstrap Script -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h2>Audio Hate Speech Detection</h2>
+        <p>Upload an audio file and let AI detect if it contains hate speech.</p>
+        
+        <!-- Language Selection -->
+        <div class="mb-3">
+            <label for="language" class="form-label">Select Language:</label>
+            <select id="language" class="form-control">
+                <option value="english">🇬🇧 English</option>
+                <option value="burmese">🇲🇲 Burmese</option>
+            </select>
+        </div>
+
+        <form id="upload-form" enctype="multipart/form-data">
+            <input type="file" name="audio" accept="audio/*" required class="form-control mb-3">
+            <button type="submit">Upload & Detect</button>
+        </form>
+
+        <!-- Loading message -->
+        <p id="loading">Detecting... Please wait.</p>
+
+        <!-- Result Section -->
+        <div id="result" class="result" style="display: none;">
+            <h4>Transcription:</h4>
+            <p id="transcribed-text"></p>
+            <h4>Prediction:</h4>
+            <p id="prediction"></p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("upload-form").onsubmit = async function(event) {
+            event.preventDefault();
+
+            // Show loading message
+            document.getElementById("loading").style.display = "block";
+            document.getElementById("result").style.display = "none";
+
+            let formData = new FormData();
+            let fileInput = document.querySelector('input[type="file"]');
+            let language = document.getElementById("language").value; // Get selected language
+            formData.append("audio", fileInput.files[0]);
+            formData.append("language", language); // Send language to backend
+
+            try {
+                const response = await fetch("/detect", { method: "POST", body: formData });
+                const data = await response.json();
+
+                // Hide loading message & show result
+                document.getElementById("loading").style.display = "none";
+                document.getElementById("result").style.display = "block";
+                document.getElementById("transcribed-text").textContent = data.transcribed_text;
+                document.getElementById("prediction").textContent = data.prediction;
+            } catch (error) {
+                console.error("Error:", error);
+                document.getElementById("loading").textContent = "Error occurred! Please try again.";
+            }
+        };
+    </script>
+
+</body>
+</html>

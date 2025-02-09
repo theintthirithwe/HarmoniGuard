@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About us</title>
+    <link rel="stylesheet" href="C:\Users\DEll\Documents\HELLO_FLASK\static\test.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='test.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='responsive.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="/static/serve.js" charset="utf-8"></script> 
+    <style>
+        body {
+            background: #170c65;
+            color: white;
+            font-family: 'Arial', sans-serif;
+          
+        }
+    </style>
+    
+</head>
+
+<body>
+
+
+       <!-- Header Section -->
+   <header class="header_section">
+    <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg custom_nav-container">
+            <a class="navbar-brand" href="index.html" style="color:white,bold">Data Prophets</a>
+            
+            <!-- Mobile Menu Toggle -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+
+                    <!-- Dropdown for Detection -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            Detection
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="/text_detect">Text Detection</a></li>
+                            <li><a class="dropdown-item" href="/detect">Audio Detection</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/test">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contact">Contact Us</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</header>
+
+
+    <div class="container">
+        <div class="box">
+            <h1>Meet Team Data Prophet</h1>
+            <p>Our team, Data Prophet, has meticulously engineered an advanced machine learning-driven hate speech 
+            detection system,
+             aimed at fostering a more inclusive and harmonious digital environment. 
+             By leveraging cutting-edge natural language processing techniques, our system efficiently identifies and mitigates harmful content, ensuring a safer online space. 
+             This initiative aligns with our commitment to utilizing AI for social good, promoting respectful discourse across diverse communities. Through continuous innovation, we strive to enhance the system’s accuracy and adaptability, reinforcing our mission to combat online toxicity and cultivate peace.
+            </p>
+            
+        </div>
+        <div class="box1">
+            <img src="/static/ML.png" alt="">
+            
+        </div>
+    </div>  
+
+    <!-- Main Container Start -->
+    <div class="main-container">
+        <div class="container1234">
+            <div class="box" style="--clr:#FFD700;">
+                <div class="content">
+                    <div class="icon"><ion-icon name="analytics-outline"></ion-icon></div>
+                    <div class="text">
+                        <h3>Positive Reputation</h3>
+                        <p>Achieved with content remaining respectful, trustworthy and safe for all users</p>
+                    </div>
+                </div>
+            </div>
+            <div class="box" style="--clr:#D3D3D3;">
+                <div class="content">
+                    <div class="icon"><ion-icon name="accessibility-outline"></ion-icon></div>
+                    <div class="text">
+                        <h3>Digital Harmony</h3>
+                        <p>Fostering digital harmony by detecting and mitigating hate speech</p>
+                    </div>
+                </div>
+            </div>
+            <div class="box" style="--clr:#89ec5b;">
+                <div class="content">
+                    <div class="icon"><ion-icon name="eye-off-outline"></ion-icon></div>
+                    <div class="text">
+                        <h3>No Harmful Content</h3>
+                        <p>Ensuring safer and more inclusive digital spaces</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</body>
+
+</html>
